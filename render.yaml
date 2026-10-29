@@ -1,24 +1,24 @@
 databases:
-    - name: school_db
+  - name: school_db
     databaseName: school_portal_db
     user: school_user
     plan: free
 
 services:
-    - type: web
+  - type: web
     name: school_portal_api
     env: python
     plan: free
-    buildCommand: "./school/build.sh"
-    startCommand: "gunicorn school.wsgi:application"
+    buildCommand: ./school/build.sh
+    startCommand: gunicorn school.wsgi:application
     envVars:
-            - key: DATABASE_URL
+      - key: DATABASE_URL
         fromDatabase:
           name: school_db
           property: connectionString
-            - key: SECRET_KEY
+      - key: SECRET_KEY
         generateValue: true
-            - key: WEB_CONCURRENCY
+      - key: WEB_CONCURRENCY
         value: 4
-            - key: PYTHON_VERSION
+      - key: PYTHON_VERSION
         value: 3.11.0
